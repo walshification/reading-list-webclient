@@ -1,0 +1,7 @@
+<% @books.each do |book| %>
+  <h1><%= book["title"] %></h1>
+  <h2>By: <%= book["authors"][0]["first_name"] %> <%= book["authors"][0]["last_name"] %></h2>
+  <h3>Published: <%= book["published_year"] %></h2>
+  <h3>Status: <%= book["status"] %></h2>
+  <br>
+<% end %>
