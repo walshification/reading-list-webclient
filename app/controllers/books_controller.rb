@@ -1,11 +1,11 @@
 class BooksController < ApplicationController
 
   def show
-    @book = Unirest.get("http://localhost:3000/books/#{params[:id]}.json").body
+    @book = Book.find(params[:id])
   end
 
   def index
-    @books = Unirest.get("http://localhost:3000/books.json").body
+    @books = Book.all
   end
 
   def edit
