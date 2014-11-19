@@ -9,11 +9,11 @@ class BooksController < ApplicationController
   end
 
   def edit
-    @book = Unirest.get("http://localhost:3000/books/#{params[:id]}.json", headers:{ "Accept" => "application/json" }).body
+    @book = Unirest.get("#{ENV['READING_LIST_API_ROOT']}/books.json", headers:{ "Content-Type" => "application/json", "X-User-Email" => "#{ENV['WEBCLIENT_EMAIL']}", "Authorization" => "Token token=#{ENV['WEBCLIENT_API_KEY']}" }).body
   end
 
   def update
-    @book = Unirest.patch("http://localhost:3000/books/#{params[:id]}.json", headers:{ "Accept" => "application/json" },
+    @book = Unirest.patch("#{ENV['READING_LIST_API_ROOT']}/books.json", headers:{ "Accept" => "application/json", "X-User-Email" => "#{ENV['WEBCLIENT_EMAIL']}", "Authorization" => "Token token=#{ENV['WEBCLIENT_API_KEY']}" },
       parameters: { :book =>
                     {
                       :title => params[:title],

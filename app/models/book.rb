@@ -13,7 +13,7 @@ class Book
   def prioritize
     low = []
     high = []
-    raw_data_books = Unirest.get("http://localhost:3000/books.json").body
+    raw_data_books = Unirest.get("#{ENV["READING_LIST_API_ROOT"]}/books.json", headers:{ "Content-Type" => "application/json", "X-User-Email" => "#{ENV['WEBCLIENT_EMAIL']}", "Authorization" => "Token token=#{ENV['WEBCLIENT_API_KEY']}" }).body
     raw_data_books.each do |book_hash|
       books << Book.new(book_hash)
     end
@@ -28,12 +28,12 @@ class Book
   end
 
   def self.find(id)
-    Book.new(Unirest.get("http://localhost:3000/books/#{id}.json").body)
+    Book.new(Unirest.get("#{ENV["READING_LIST_API_ROOT"]}/books/#{id}.json").body, headers:{ "Content-Type" => "application/json", "X-User-Email" => "#{ENV['WEBCLIENT_EMAIL']}", "Authorization" => "Token token=#{ENV['WEBCLIENT_API_KEY']}" })
   end
 
   def self.all
     books = []
-    raw_data_books = Unirest.get("http://localhost:3000/books.json").body
+    raw_data_books = Unirest.get("#{ENV["READING_LIST_API_ROOT"]}/books.json", headers:{ "Content-Type" => "application/json", "X-User-Email" => "#{ENV['WEBCLIENT_EMAIL']}", "Authorization" => "Token token=#{ENV['WEBCLIENT_API_KEY']}" }).body
     raw_data_books.each do |book_hash|
       books << Book.new(book_hash)
     end
